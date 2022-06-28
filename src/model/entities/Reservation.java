@@ -42,9 +42,18 @@ public class Reservation {
 		//TimeUnit é um ENUM que faz conversões complexas de tempo
 	}
 	
-	public void updateDate(Date checkIn, Date checkOut) {
+	public String updateDate(Date checkIn, Date checkOut) {
+		
+		Date now = new Date();
+		if(checkIn.before(now)|| checkOut.before(now)) {
+			return "Error in reservation: Reservation dates for update must be future dates";
+		}
+		if(!checkOut.after(checkIn)) {
+			return " Check-out date must be after check-in date";
+		}
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		return null; //retorna nulo é porque não deu nenhum erro
 	}
 	
 	@Override
